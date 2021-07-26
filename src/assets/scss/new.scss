@@ -1,0 +1,142 @@
+
+
+@font-face {
+  font-family: "Acrom-Bold";
+  src: url("~assets/fonts/Acrom/Acrom-Bold.ttf");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Acrom-ExtraBold";
+  src: url("~assets/fonts/Acrom/Acrom-ExtraBold.ttf");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Acrom-Light";
+  src: url("~assets/fonts/Acrom/Acrom-Light.ttf");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Acrom-Medium";
+  src: url("~assets/fonts/Acrom/Acrom-Medium.ttf");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Acrom-Regular";
+  src: url("~assets/fonts/Acrom/Acrom-Regular.ttf");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Acrom-Thin";
+  src: url("~assets/fonts/Acrom/Acrom-Thin.ttf");
+  font-display: swap;
+}
+
+
+.font-acrom-bold{
+  font-family: "Acrom-Bold", sans-serif;
+}
+
+.font-acrom-extra-bold{
+  font-family: "Acrom-ExtraBold", sans-serif;
+}
+
+.font-acrom-light{
+  font-family: "Acrom-Light", sans-serif;
+}
+
+.font-acrom-medium{
+  font-family: "Acrom-Medium", sans-serif;
+}
+
+.font-acrom-regular{
+  font-family: "Acrom-Regular", sans-serif;
+}
+
+.font-acrom-thin{
+  font-family: "Acrom-Thin", sans-serif;
+}
+
+
+
+html {
+  body{
+    font-family: "Acrom-Medium", sans-serif;
+
+    .sidebar{
+      &:after{
+        background-color: #F61E2E!important;
+      }
+    }
+
+
+    .new-logo{
+      position: relative;
+      z-index: 4;
+      text-align: center;
+      padding: 30px 20px;
+      border-bottom: 1px solid #afafaf;
+    }
+
+    .order-header{
+      padding: 0 16px;
+      h4{
+        font-size: 16px;
+        line-height: 140%;
+        color: #B3B4C6;
+        white-space: nowrap;
+      }
+    }
+
+    .order-list{
+      .order-list-item{
+
+        background: #FFFFFF;
+        cursor: pointer;
+
+        /* Light/Shadow/hub */
+
+
+        border-radius: 16px;
+        overflow: hidden;
+        h6{
+          font-size: 14px;
+          line-height: 140%;
+          color: #1E1E27;
+          text-transform: capitalize;
+          white-space: nowrap;
+        }
+        transition: all 0.3s linear;
+
+
+        .order-list-item-header{
+          box-shadow: 0px 2px 35px rgba(9, 17, 38, 0.1);
+          padding: 16px;
+        }
+
+        .order-list-body{
+          padding-top: 20px;
+          transition: all 0.3s linear;
+          h3{
+            font-size: 20px;
+          }
+          p{
+            color: #B3B4C6;
+            font-size: 16px;
+          }
+          h2{
+            font-size: 20px;
+          }
+        }
+
+        &:hover{
+          box-shadow: 0px 2px 20px rgba(9, 17, 38, 0.6);
+        }
+      }
+    }
+  }
+}
