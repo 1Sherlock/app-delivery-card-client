@@ -1,0 +1,200 @@
+/**
+ * Created by Sherlock on 07.05.2021.
+ */
+$color-text: #1E1E27;
+$color-muted-text: #B3B4C6;
+$color-icon-dashboard: #9294AC;
+$color-main: #F61E2E;
+$color-modal-bg: #26263C;
+$color-main-success: #65CC4C;
+$color-main-primary: #5685FF;
+$color-main-bg: #f2f4f8;
+
+.login {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.loginLeft {
+  height: 100%;
+  width: 400px;
+  overflow-y: auto;
+  padding: 2rem;
+  background: linear-gradient(192.04deg, #F61E2E 0%, #920448 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-shrink: 0;
+
+  .logo{
+    width: 82px;
+    height: 108px;
+    display: block;
+    background-image: url("~assets/icons/logo_white.svg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+  }
+
+  .loginLeftCenter {
+    margin-bottom: 44px;
+    h3 {
+      font-size: 20px;
+      line-height: 140%;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 20px;
+      line-height: 140%;
+      margin-bottom: 0;
+    }
+
+    h3, p {
+      color: #ffffff;
+    }
+  }
+
+  .loginLeftBottom {
+    display: flex;
+    justify-content: space-between;
+
+    .loginLeftBottomLanguage {
+      .dropdownItemContent {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+
+
+        .check{
+          width: 17px;
+          height: 17px;
+          background-image: url("~assets/icons/check-circle.svg");
+          background-size: 100%;
+          background-repeat: no-repeat;
+        }
+      }
+      .uzbekistan, .russia, .uzbekistanKiril, .english{
+        width: 20px;
+        height: 20px;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        margin-right: 10px;
+      }
+
+      .uzbekistan{
+        background-image: url("~assets/icons/uzbekistan-flag.svg");
+      }
+
+      .russia{
+        //background-image: url("~assets/icons/russia-flag.svg");
+
+      }
+
+      .english{
+        //background-image: url("~assets/icons/united-states-flag.svg");
+
+      }
+    }
+
+    .loginLeftBottomHelp {
+      .helpIcon{
+        width: 20px;
+        height: 20px;
+        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff' fill-rule='evenodd' d='M3.11 10.53a.36.36 0 00-.36.36v9.3l2.05-2.05a.75.75 0 01.53-.22h7.78a.36.36 0 00.36-.36v-2.23a.75.75 0 011.5 0v2.23a1.86 1.86 0 01-1.86 1.86H5.64l-3.11 3.11A.75.75 0 011.25 22V10.89a1.86 1.86 0 011.86-1.86h2.22a.75.75 0 110 1.5H3.11z' clip-rule='evenodd'/%3E%3Cpath fill='%23F61E2E' fill-rule='evenodd' d='M10.89 2.75a.36.36 0 00-.36.36v6.67a.36.36 0 00.36.36h7.78c.2 0 .39.08.53.22l2.05 2.05v-9.3a.36.36 0 00-.36-.36h-10zM9.57 1.8c.35-.35.83-.55 1.32-.55h10a1.86 1.86 0 011.86 1.86v11.11a.75.75 0 01-1.28.53l-3.11-3.11h-7.47a1.86 1.86 0 01-1.86-1.86V3.1c0-.5.2-.97.54-1.31z' clip-rule='evenodd'/%3E%3C/svg%3E");
+        background-size: 100%;
+        background-repeat: no-repeat;
+        margin-right: 10px;
+      }
+      .dropdownItemContent{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 14px;
+        line-height: 140%;
+        color: $color-text;
+        h6{
+          margin-bottom: 0;
+          font-size: 14px;
+          line-height: 140%;
+          color: $color-text;
+        }
+
+        .operator{
+          width: 24px;
+          height: 24px;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'%3E%3Cpath fill='%23F61E2E' d='M5.25 14h11c.1.17.22.33.37.47l.72.69c-.04.15-.1.31-.16.47a.75.75 0 00-.43-.13H5.25a.75.75 0 00-.75.75v.9c0 .66.29 1.29.79 1.71C6.55 19.95 8.44 20.5 11 20.5c.3 0 .58 0 .85-.02.08.45.3.87.63 1.2l.23.24c-.54.05-1.11.08-1.71.08-2.89 0-5.13-.66-6.7-2A3.75 3.75 0 013 17.16v-.91C3 15.01 4.01 14 5.25 14zM11 2a5 5 0 110 10 5 5 0 010-10zm0 1.5a3.5 3.5 0 100 7 3.5 3.5 0 000-7z'%3E%3C/path%3E%3Cpath fill='%231E1E27' fill-rule='evenodd' d='M17.51 11.06l-.5 1.18-.05.14c-.15.48-.01 1.02.35 1.37l1.11 1.05-.04.27a5.08 5.08 0 01-1.93 3.11l-1.33-.44-.12-.04c-.47-.1-.96.1-1.24.52l-.72 1.06-.07.11c-.28.52-.2 1.18.22 1.6l.48.47.12.12c.47.39 1.09.52 1.67.34 1.48-.46 2.85-1.84 4.1-4.13 1.24-2.3 1.68-4.24 1.32-5.84a1.9 1.9 0 00-1.26-1.4l-.63-.2-.12-.04a1.21 1.21 0 00-1.36.75zm1.3.8l-.38.88 1.03.98c.07-.55.05-1.02-.04-1.43-.05-.19-.17-.29-.26-.31l-.36-.12zm-2.52 7.85l-1.41-.47-.53.78.36.36.06.06c.08.06.17.07.24.05.4-.13.83-.37 1.28-.78z' clip-rule='evenodd'%3E%3C/path%3E%3C/svg%3E");
+          background-size: 100%;
+          background-repeat: no-repeat;
+          margin-left: 14px;
+
+        }
+        .mail{
+          width: 24px;
+          height: 24px;
+          background-image: url("~assets/icons/envelope.svg");
+          background-size: 100%;
+          background-repeat: no-repeat;
+          margin-left: 14px;
+        }
+      }
+    }
+
+    .loginLeftBottomLanguage, .loginLeftBottomHelp {
+      cursor: pointer;
+      color: #ffffff;
+      font-size: 14px;
+      line-height: 140%;
+      display: flex;
+      align-items: center;
+      position: relative;
+
+      img {
+        margin-right: 12px;
+      }
+    }
+
+  }
+}
+
+.loginRight{
+  width: 100%;
+
+  height: 100%;
+  overflow-y: auto;
+  padding-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+
+  .loginRightContent{
+    padding-top: 16px;
+    width: 100%;
+    display: flex;
+    flex: 1 1;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+
+
+  }
+
+  .loginRightFooter{
+    text-align: center;
+    color: #B3B4C6;
+    font-size: 13px;
+    margin-top: 16px;
+    line-height: 140%;
+  }
+}
+@media only screen  and (min-width:768px) and (max-width:991px) {
+  .loginLeft {
+    width: 300px;
+  }
+}
+@media only screen  and (max-width:768px) {
+  .loginLeft {
+    display: none;
+  }
+}

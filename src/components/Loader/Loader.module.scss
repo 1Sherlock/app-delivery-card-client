@@ -1,0 +1,61 @@
+/**
+ * Created by Sherlock on 07.05.2021.
+ */
+ 
+.loader{
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 9999;
+  background: linear-gradient(192.04deg, #F61E2E 0%, #920448 100%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+
+  h4{
+    color: #fff;
+    font-size: 14px;
+    line-height: 140%;
+    font-weight: 500;
+    margin-bottom: 0;
+    margin-top: 24px;
+  }
+
+  .logo{
+    width: 114px;
+    height: 150px;
+    background-image: url("~assets/icons/logo_white.svg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    margin-bottom: 80px;
+  }
+
+  .spinner{
+    width: 32px;
+    height: 32px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff' d='M12 2a1 1 0 00-1 1v2a1 1 0 002 0V3a1 1 0 00-1-1zm9 9h-2a1 1 0 000 2h2a1 1 0 000-2zM6 12a1 1 0 00-1-1H3a1 1 0 000 2h2a1 1 0 001-1zm.22-7a1.01 1.01 0 10-1.39 1.47l1.44 1.39a1 1 0 00.73.28 1 1 0 00.72-.31 1 1 0 000-1.41L6.22 5zM17 8.14a1 1 0 00.69-.28l1.44-1.39A1 1 0 0017.78 5l-1.44 1.42a1 1 0 000 1.41c.17.18.4.3.66.31zM12 18a1 1 0 00-1 1v2a1 1 0 002 0v-2a1 1 0 00-1-1zm5.73-1.86a1 1 0 00-1.39 1.44L17.78 19a1 1 0 001.41-.02 1 1 0 000-1.42l-1.46-1.42zm-11.46 0l-1.44 1.39a1 1 0 00.33 1.64 1 1 0 00.39.08 1 1 0 00.67-.25l1.44-1.39a1 1 0 10-1.39-1.44v-.03z' /%3E%3C/svg%3E");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    animation-name: spinner;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+
+}
+
+.hiding{
+  opacity: 0;
+  transition: all 1s linear;
+}
+
+@keyframes spinner {
+  100%{
+    transform: rotate(360deg);
+  }
+}
