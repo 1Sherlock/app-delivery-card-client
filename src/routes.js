@@ -29,14 +29,14 @@ import Orders from "views/Orders";
 var routes = [
   {
     path: "/dashboard",
-    name: "Dashboard",
+    name: "Дешборд",
     icon: "nc-icon nc-bank",
     component: Dashboard,
     layout: "/admin",
   },
   {
     path: "/orders",
-    name: "Orders",
+    name: "Заказы",
     icon: "nc-icon nc-calendar-60",
     component: Orders,
     layout: "/admin",

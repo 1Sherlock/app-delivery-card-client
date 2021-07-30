@@ -71,6 +71,17 @@ html {
       &:after{
         background-color: #F61E2E!important;
       }
+
+      .sidebar-wrapper{
+        .nav{
+          .nav-link{
+            color: #FFFFFF;
+            i{
+              color: #fff;
+            }
+          }
+        }
+      }
     }
 
 

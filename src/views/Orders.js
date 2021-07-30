@@ -13,22 +13,22 @@ const Orders = () => {
             <div className="container-fluid">
                 <div className="row mb-3 order-header">
                     <div className="col-2">
-                        <h4 className="mb-0 font-acrom-bold mt-0">ID</h4>
+                        <h4 className="mb-0 font-acrom-bold mt-0">ИД</h4>
                     </div>
                     <div className="col-2">
-                        <h4 className="mb-0 font-acrom-bold mt-0">Full name</h4>
+                        <h4 className="mb-0 font-acrom-bold mt-0">Ф.И.О</h4>
                     </div>
                     <div className="col-2">
-                        <h4 className="mb-0 font-acrom-bold mt-0">Date</h4>
+                        <h4 className="mb-0 font-acrom-bold mt-0">Дата</h4>
                     </div>
                     <div className="col-2">
-                        <h4 className="mb-0 font-acrom-bold mt-0">Order Type</h4>
+                        <h4 className="mb-0 font-acrom-bold mt-0">Тип заказа</h4>
                     </div>
                     <div className="col-2">
-                        <h4 className="mb-0 font-acrom-bold mt-0">Card Type</h4>
+                        <h4 className="mb-0 font-acrom-bold mt-0">Тип карты</h4>
                     </div>
                     <div className="col-2">
-                        <h4 className="mb-0 font-acrom-bold mt-0">Filial</h4>
+                        <h4 className="mb-0 font-acrom-bold mt-0">Филиал</h4>
                     </div>
                 </div>
                 <div className="order-list">
@@ -55,33 +55,31 @@ const Orders = () => {
                         </div>
                         <Collapse isOpen={show === 0} className="w-100">
                             <div className="order-list-body row mx-0 w-100 justify-content-center">
-                                <div className="col-8"><h3 className="mt-0 font-acrom-bold mb-4 text-center">Personal
-                                    information</h3></div>
-                                <div className="col-4"><h3 className="mt-0 font-acrom-bold mb-4 text-center">Order
-                                    information</h3></div>
+                                <div className="col-8"><h3 className="mt-0 font-acrom-bold mb-4 text-center">Персональная информация</h3></div>
+                                <div className="col-4"><h3 className="mt-0 font-acrom-bold mb-4 text-center">Информация о заказе</h3></div>
                                 <div className="col-3 offset-2">
-                                    <p className="mt-0 mb-1">PINFL</p>
+                                    <p className="mt-0 mb-1">ПИНФЛ</p>
                                     <h2 className="mt-0 mb-3 font-acrom-bold">39391083849203</h2>
 
                                     <p className="mt-0 mb-1">Passport serial</p>
                                     <h2 className="mt-0 mb-3 font-acrom-bold">AA 8576746</h2>
 
-                                    <p className="mt-0 mb-1">Birthday</p>
+                                    <p className="mt-0 mb-1">Дата рождения</p>
                                     <h2 className="mt-0 mb-3 font-acrom-bold">20.11.1998</h2>
                                 </div>
                                 <div className="col-3">
-                                    <p className="mt-0 mb-1">Main phone number</p>
+                                    <p className="mt-0 mb-1">Основной номер телефона</p>
                                     <h2 className="mt-0 mb-3 font-acrom-bold">+998 93 436 63 31</h2>
 
-                                    <p className="mt-0 mb-1">Second phone number</p>
+                                    <p className="mt-0 mb-1">Вторичный номер телефона</p>
                                     <h2 className="mt-0 mb-3 font-acrom-bold">+998 33 166 11 31</h2>
                                 </div>
                                 <div className="col-4">
-                                    <p className="mt-0 mb-1">Payment status</p>
-                                    <h2 className="mt-0 mb-3 font-acrom-bold">Success</h2>
+                                    <p className="mt-0 mb-1">Статус платежа</p>
+                                    <h2 className="mt-0 mb-3 font-acrom-bold">Успешно</h2>
 
-                                    <p className="mt-0 mb-1">Delivery status</p>
-                                    <h2 className="mt-0 mb-3 font-acrom-bold">Delivered</h2>
+                                    <p className="mt-0 mb-1">Статус доставки</p>
+                                    <h2 className="mt-0 mb-3 font-acrom-bold">Доставлено</h2>
                                 </div>
                             </div>
                         </Collapse>
@@ -109,33 +107,31 @@ const Orders = () => {
                         </div>
                         <Collapse isOpen={show === 1} className="w-100">
                             <div className="order-list-body row mx-0 w-100 justify-content-center">
-                                <div className="col-8"><h3 className="mt-0 font-acrom-bold mb-4 text-center">Personal
-                                    information</h3></div>
-                                <div className="col-4"><h3 className="mt-0 font-acrom-bold mb-4 text-center">Order
-                                    information</h3></div>
+                                <div className="col-8"><h3 className="mt-0 font-acrom-bold mb-4 text-center">Персональная информация</h3></div>
+                                <div className="col-4"><h3 className="mt-0 font-acrom-bold mb-4 text-center">Информация о заказе</h3></div>
                                 <div className="col-3 offset-2">
-                                    <p className="mt-0 mb-1">PINFL</p>
+                                    <p className="mt-0 mb-1">ПИНФЛ</p>
                                     <h2 className="mt-0 mb-3 font-acrom-bold">39391083849203</h2>
 
                                     <p className="mt-0 mb-1">Passport serial</p>
                                     <h2 className="mt-0 mb-3 font-acrom-bold">AA 8576746</h2>
 
-                                    <p className="mt-0 mb-1">Birthday</p>
+                                    <p className="mt-0 mb-1">Дата рождения</p>
                                     <h2 className="mt-0 mb-3 font-acrom-bold">20.11.1998</h2>
                                 </div>
                                 <div className="col-3">
-                                    <p className="mt-0 mb-1">Main phone number</p>
+                                    <p className="mt-0 mb-1">Основной номер телефона</p>
                                     <h2 className="mt-0 mb-3 font-acrom-bold">+998 93 436 63 31</h2>
 
-                                    <p className="mt-0 mb-1">Second phone number</p>
+                                    <p className="mt-0 mb-1">Вторичный номер телефона</p>
                                     <h2 className="mt-0 mb-3 font-acrom-bold">+998 33 166 11 31</h2>
                                 </div>
                                 <div className="col-4">
-                                    <p className="mt-0 mb-1">Payment status</p>
-                                    <h2 className="mt-0 mb-3 font-acrom-bold">Success</h2>
+                                    <p className="mt-0 mb-1">Статус платежа</p>
+                                    <h2 className="mt-0 mb-3 font-acrom-bold">Успешно</h2>
 
-                                    <p className="mt-0 mb-1">Delivery status</p>
-                                    <h2 className="mt-0 mb-3 font-acrom-bold">Delivered</h2>
+                                    <p className="mt-0 mb-1">Статус доставки</p>
+                                    <h2 className="mt-0 mb-3 font-acrom-bold">Доставлено</h2>
                                 </div>
                             </div>
                         </Collapse>
@@ -163,33 +159,31 @@ const Orders = () => {
                         </div>
                         <Collapse isOpen={show === 2} className="w-100">
                             <div className="order-list-body row mx-0 w-100 justify-content-center">
-                                <div className="col-8"><h3 className="mt-0 font-acrom-bold mb-4 text-center">Personal
-                                    information</h3></div>
-                                <div className="col-4"><h3 className="mt-0 font-acrom-bold mb-4 text-center">Order
-                                    information</h3></div>
+                                <div className="col-8"><h3 className="mt-0 font-acrom-bold mb-4 text-center">Персональная информация</h3></div>
+                                <div className="col-4"><h3 className="mt-0 font-acrom-bold mb-4 text-center">Информация о заказе</h3></div>
                                 <div className="col-3 offset-2">
-                                    <p className="mt-0 mb-1">PINFL</p>
+                                    <p className="mt-0 mb-1">ПИНФЛ</p>
                                     <h2 className="mt-0 mb-3 font-acrom-bold">39391083849203</h2>
 
                                     <p className="mt-0 mb-1">Passport serial</p>
                                     <h2 className="mt-0 mb-3 font-acrom-bold">AA 8576746</h2>
 
-                                    <p className="mt-0 mb-1">Birthday</p>
+                                    <p className="mt-0 mb-1">Дата рождения</p>
                                     <h2 className="mt-0 mb-3 font-acrom-bold">20.11.1998</h2>
                                 </div>
                                 <div className="col-3">
-                                    <p className="mt-0 mb-1">Main phone number</p>
+                                    <p className="mt-0 mb-1">Основной номер телефона</p>
                                     <h2 className="mt-0 mb-3 font-acrom-bold">+998 93 436 63 31</h2>
 
-                                    <p className="mt-0 mb-1">Second phone number</p>
+                                    <p className="mt-0 mb-1">Вторичный номер телефона</p>
                                     <h2 className="mt-0 mb-3 font-acrom-bold">+998 33 166 11 31</h2>
                                 </div>
                                 <div className="col-4">
-                                    <p className="mt-0 mb-1">Payment status</p>
-                                    <h2 className="mt-0 mb-3 font-acrom-bold">Success</h2>
+                                    <p className="mt-0 mb-1">Статус платежа</p>
+                                    <h2 className="mt-0 mb-3 font-acrom-bold">Успешно</h2>
 
-                                    <p className="mt-0 mb-1">Delivery status</p>
-                                    <h2 className="mt-0 mb-3 font-acrom-bold">Delivered</h2>
+                                    <p className="mt-0 mb-1">Статус доставки</p>
+                                    <h2 className="mt-0 mb-3 font-acrom-bold">Доставлено</h2>
                                 </div>
                             </div>
                         </Collapse>
@@ -217,33 +211,31 @@ const Orders = () => {
                         </div>
                         <Collapse isOpen={show === 3} className="w-100">
                             <div className="order-list-body row mx-0 w-100 justify-content-center">
-                                <div className="col-8"><h3 className="mt-0 font-acrom-bold mb-4 text-center">Personal
-                                    information</h3></div>
-                                <div className="col-4"><h3 className="mt-0 font-acrom-bold mb-4 text-center">Order
-                                    information</h3></div>
+                                <div className="col-8"><h3 className="mt-0 font-acrom-bold mb-4 text-center">Персональная информация</h3></div>
+                                <div className="col-4"><h3 className="mt-0 font-acrom-bold mb-4 text-center">Информация о заказе</h3></div>
                                 <div className="col-3 offset-2">
-                                    <p className="mt-0 mb-1">PINFL</p>
+                                    <p className="mt-0 mb-1">ПИНФЛ</p>
                                     <h2 className="mt-0 mb-3 font-acrom-bold">39391083849203</h2>
 
-                                    <p className="mt-0 mb-1">Passport serial</p>
+                                    <p className="mt-0 mb-1">Серия паспорта</p>
                                     <h2 className="mt-0 mb-3 font-acrom-bold">AA 8576746</h2>
 
-                                    <p className="mt-0 mb-1">Birthday</p>
+                                    <p className="mt-0 mb-1">Дата рождения</p>
                                     <h2 className="mt-0 mb-3 font-acrom-bold">20.11.1998</h2>
                                 </div>
                                 <div className="col-3">
-                                    <p className="mt-0 mb-1">Main phone number</p>
+                                    <p className="mt-0 mb-1">Основной номер телефона</p>
                                     <h2 className="mt-0 mb-3 font-acrom-bold">+998 93 436 63 31</h2>
 
-                                    <p className="mt-0 mb-1">Second phone number</p>
+                                    <p className="mt-0 mb-1">Вторичный номер телефона</p>
                                     <h2 className="mt-0 mb-3 font-acrom-bold">+998 33 166 11 31</h2>
                                 </div>
                                 <div className="col-4">
-                                    <p className="mt-0 mb-1">Payment status</p>
-                                    <h2 className="mt-0 mb-3 font-acrom-bold">Success</h2>
+                                    <p className="mt-0 mb-1">Статус платежа</p>
+                                    <h2 className="mt-0 mb-3 font-acrom-bold">Успешно</h2>
 
-                                    <p className="mt-0 mb-1">Delivery status</p>
-                                    <h2 className="mt-0 mb-3 font-acrom-bold">Delivered</h2>
+                                    <p className="mt-0 mb-1">Статус доставки</p>
+                                    <h2 className="mt-0 mb-3 font-acrom-bold">Доставлено</h2>
                                 </div>
                             </div>
                         </Collapse>

@@ -5,7 +5,7 @@
 import React, {useState} from 'react';
 import styles from './LoginForm.module.scss';
 
-const Index = () => {
+const Index = (props) => {
 
     /*inputs values*/
     const [phoneNumber, setPhoneNumber] = useState("");
@@ -175,7 +175,7 @@ const Index = () => {
                         </div>
                     </div>
 
-                    <button type="button" className={styles.btnLogin + " font-acrom-bold btn-submit"}>Подтвердить</button>
+                    <button type="button" className={styles.btnLogin + " font-acrom-bold btn-submit"} onClick={() => props.history.push("/admin/dashboard")}>Подтвердить</button>
 
                 </>
                 }

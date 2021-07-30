@@ -9,7 +9,7 @@ import LoginForm from "components/LoginForm";
 
 import styles from "assets/scss/Login.module.scss";
 
-const Login = () => {
+const Login = (props) => {
     const [hiding, setHiding] = useState(false);
     const [hide, setHide] = useState(false);
     const [showLanguage, setShowLanguage] = useState(false);
@@ -194,7 +194,7 @@ const Login = () => {
 
             <div className={styles.loginRight}>
                 <div className={styles.loginRightContent}>
-                    <LoginForm />
+                    <LoginForm history={props.history}/>
                 </div>
                 <div className={styles.loginRightFooter + " font-acrom-medium"}>
                     {/*V0.3.0 dev*/}
