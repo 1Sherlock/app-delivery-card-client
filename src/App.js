@@ -7,6 +7,7 @@ import "assets/scss/new.scss";
 
 import AdminLayout from "layouts/Admin.js";
 import Login from "./views/Login";
+import {ToastContainer} from "react-toastify";
 
 function App() {
     return (
@@ -16,6 +17,9 @@ function App() {
                 <Route path="/login" component={Login}/>
                 <Redirect to="/login"/>
             </Switch>
+
+            <ToastContainer/>
+
         </BrowserRouter>
     );
 }

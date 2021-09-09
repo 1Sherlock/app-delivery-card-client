@@ -1,0 +1,2 @@
+
+export const UPDATESTATE = "CARD_UPDATE_STATE";

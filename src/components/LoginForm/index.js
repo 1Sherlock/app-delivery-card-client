@@ -4,6 +4,8 @@
 
 import React, {useState} from 'react';
 import styles from './LoginForm.module.scss';
+import {login} from "../../redux/actions/authAction";
+import {connect} from "react-redux";
 
 const Index = (props) => {
 
@@ -12,6 +14,7 @@ const Index = (props) => {
     const [password, setPassword] = useState("");
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
+    const [username, setUsername] = useState("");
     const [code, setCode] = useState("");
 
     const [showPassword, setShowPassword] = useState(false);
@@ -53,8 +56,8 @@ const Index = (props) => {
     const changeValue = (e) => {
         if (e.target.name === "password")
             setPassword(e.target.value);
-        else if (e.target.name === "firstname")
-            setFirstname(e.target.value)
+        else if (e.target.name === "username")
+            setUsername(e.target.value)
         else if (e.target.name === "lastname")
             setLastname(e.target.value)
         else if (e.target.name === "code") {
@@ -68,32 +71,33 @@ const Index = (props) => {
 
             <div className={styles.loginForm + " " + (status === 1 || status === 2 ? styles.loginFormContent : "")}>
                 {status === 0 &&
-                <p className={styles.loginText + " font-acrom-medium"}>Введите номер телефона что бы <br/> войти в
+                <p className={styles.loginText + " font-acrom-medium"}>Введите имя пользователя что бы <br/> войти в
                     аккаунт </p>}
-                {status !== 3 &&
-                <>
-                    <label htmlFor="phoneNumber" className="font-acrom-medium">Введите ваш номер телефона</label>
+                {/*{status !== 3 &&*/}
+                {/*<>*/}
+                    <label htmlFor="phoneNumber" className="font-acrom-medium">Введите ваш имя пользователя</label>
                     <div className={styles.inputGroup}>
-                        <div className={styles.inputGroupAppend + " font-acrom-medium"}>
-                            <div className={styles.uzbekistan}/>
-                            +998
-                            <div className={styles.line}/>
-                        </div>
-                        <input type="text" id="phoneNumber" maxLength="12" pattern="[0-9]+" autoComplete="off"
-                               placeholder="-- --- -- --" value={phoneNumber} onChange={changeInput}
-                               className={styles.phoneInput + " font-acrom-medium"}/>
-                        {phoneNumber.length > 0 && !isLoading && <div className={styles.clearInput} onClick={() => {
-                            setPhoneNumber("");
-                            setStatus(0);
-                            setFocus("phoneNumber")
-                        }}/>}
-                        {isLoading && <div className={styles.spinner}/>}
+                        {/*<div className={styles.inputGroupAppend + " font-acrom-medium"}>*/}
+                        {/*    <div className={styles.uzbekistan}/>*/}
+                        {/*    +998*/}
+                        {/*    <div className={styles.line}/>*/}
+                        {/*</div>*/}
+                        <input type="text" id="username" name="username"
+                               placeholder="Введите"
+                               value={username} onChange={changeValue}
+                               className={styles.input + " font-acrom-medium"}/>
+                        {/*{phoneNumber.length > 0 && !isLoading && <div className={styles.clearInput} onClick={() => {*/}
+                        {/*    setPhoneNumber("");*/}
+                        {/*    setStatus(0);*/}
+                        {/*    setFocus("phoneNumber")*/}
+                        {/*}}/>}*/}
+                        {/*{isLoading && <div className={styles.spinner}/>}*/}
                     </div>
-                </>
-                }
-
-                {status === 1 ?
-                    <>
+                {/*</>*/}
+                {/*}*/}
+                {/**/}
+                {/*{status === 1 ?*/}
+                {/*    <>*/}
                         <label htmlFor="password" className="font-acrom-medium">Пароль</label>
                         <div className="position-relative">
                             <input type={showPassword ? "text" : "password"} id="password" name="password"
@@ -108,13 +112,13 @@ const Index = (props) => {
 
                         <a href="#" className={styles.forgotText + " font-acrom-medium"}>Забыли пароль?</a>
 
-                        <button type="button" onClick={() => setStatus(3)}
+                        <button type="button" onClick={() => props.login({username, password}, props.history)}
                                 className={styles.btnLogin + " font-acrom-bold btn-submit"}>Войти
                         </button>
 
-                    </> :
-                    ""
-                }
+                    {/*</> :*/}
+                    {/*""*/}
+                {/*}*/}
                 {status === 2 ?
                     <>
                         <label htmlFor="firstname" className="font-acrom-medium">Укажите имя</label>
@@ -184,4 +188,10 @@ const Index = (props) => {
     );
 }
 
-export default Index;
+const mapStateToProps = (state) => {
+    return {
+        isLoading: state.auth.isLoading
+    }
+}
+
+export default connect(mapStateToProps, {login})(Index);
