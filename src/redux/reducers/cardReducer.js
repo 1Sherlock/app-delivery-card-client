@@ -1,7 +1,10 @@
 import {UPDATESTATE} from "../types/cardType";
 
 const initialState = {
-    cards: []
+    cards: [],
+    isOpen: false,
+    file: null,
+    isOpenDelete: false
 }
 
 export const cardReducer = (state = initialState, action) => {

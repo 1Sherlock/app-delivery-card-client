@@ -21,3 +21,17 @@ export const getCards = () => (dispatch) => {
             toast.error(e.response?.data);
         })
 }
+
+export const save = (e, v) => (dispatch, getState) => {
+    axios.post(API_PATH + "api/card/create", {...v, photo: getState().card.file, type: parseInt(v.type)}, CONFIG)
+        .then(res => {
+            console.log(res);
+            if (res.status === 200){
+                dispatch(updateState({cards: res.data.cards, isOpen: false, file: null}));
+                toast.success("Сохранено")
+            }
+        })
+        .catch(err => {
+            toast.error("Ошибка!");
+        })
+}
