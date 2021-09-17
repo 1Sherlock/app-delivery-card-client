@@ -1,16 +1,15 @@
-import {UPDATESTATE} from "../types/cardType";
+import {UPDATESTATE} from "../types/regionType";
 
 const initialState = {
-    cards: [],
+    regions: [],
     isOpen: false,
-    file: null,
     isOpenDelete: false,
-    cardId: null,
+    regionId: null,
     isLoading: false,
-    selectedCard: null
+    selectedRegion: null
 }
 
-export const cardReducer = (state = initialState, action) => {
+export const regionReducer = (state = initialState, action) => {
     switch (action.type) {
         case UPDATESTATE:
             return {

@@ -1,9 +1,7 @@
-import {UPDATESTATE} from "../types/cardType";
+import {UPDATESTATE} from "../types/deliveryPriceType";
 import axios from "axios";
 import {API_PATH, CONFIG} from "../../tools/constants";
 import {toast} from "react-toastify";
-import {thead} from "../../variables/general";
-
 
 export function updateState(state) {
     return {
@@ -12,27 +10,27 @@ export function updateState(state) {
     }
 }
 
-export const getCards = () => (dispatch) => {
-    axios.get(API_PATH + "reference/cards", CONFIG)
+export const getPrices = () => (dispatch) => {
+    axios.get(API_PATH + "api/deliveryPrices", CONFIG)
         .then(res => {
             console.log(res);
-            dispatch(updateState({cards: res.data.cards}));
+            dispatch(updateState({prices: res.data.deliveryPrices}));
         })
         .catch(e => {
             toast.error(e.response?.data);
         })
 }
 
+
 export const save = (e, v) => (dispatch, getState) => {
     dispatch(updateState({isLoading: true}))
 
     if (v.id){
-        axios.put(API_PATH + "api/card/update", {...v, photo: getState().card.file, type: parseInt(v.type)}, CONFIG)
+        axios.put(API_PATH + "api/deliveryPrice/update", v, CONFIG)
             .then(res => {
-                console.log(res);
                 if (res.status === 200){
-                    if (res.data.cards){
-                        dispatch(updateState({cards: res.data.cards, isOpen: false, file: null}));
+                    if (res.data.deliveryPrices) {
+                        dispatch(updateState({prices: res.data.deliveryPrices, isOpen: false, selectedPrice: null}));
                         toast.success("Изменено")
                     } else {
                         toast.error(res.data.message);
@@ -46,11 +44,11 @@ export const save = (e, v) => (dispatch, getState) => {
                 dispatch(updateState({isLoading: false}))
             })
     } else {
-        axios.post(API_PATH + "api/card/create", {...v, photo: getState().card.file, type: parseInt(v.type)}, CONFIG)
+
+        axios.post(API_PATH + "api/deliveryPrice/create", v, CONFIG)
             .then(res => {
-                console.log(res);
                 if (res.status === 200){
-                    dispatch(updateState({cards: res.data.cards, isOpen: false, file: null}));
+                    dispatch(updateState({prices: res.data.deliveryPrices, isOpen: false}));
                     toast.success("Сохранено")
                 }
             })
@@ -64,12 +62,12 @@ export const save = (e, v) => (dispatch, getState) => {
 
 }
 
-export const deleteCard = () => (dispatch, getState) => {
+export const deletePrice = () => (dispatch, getState) => {
     dispatch(updateState({isLoading: true}))
-    axios.delete(API_PATH + "api/card/delete?cardId=" + getState().card.cardId, CONFIG)
+    axios.delete(API_PATH + "api/deliveryPrice/delete?deliveryPriceId=" + getState().price.priceId, CONFIG)
         .then(res => {
             if (res.status === 200){
-                dispatch(updateState({cards: res.data.cards, isOpenDelete: false, cardId: null}));
+                dispatch(updateState({prices: res.data.deliveryPrices, isOpenDelete: false, priceId: null}));
                 toast.success("Удалено")
             }
         })

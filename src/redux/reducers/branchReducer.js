@@ -1,16 +1,15 @@
-import {UPDATESTATE} from "../types/cardType";
+import {UPDATESTATE} from "../types/branchType";
 
 const initialState = {
-    cards: [],
+    branches: [],
     isOpen: false,
-    file: null,
     isOpenDelete: false,
-    cardId: null,
+    branchId: null,
     isLoading: false,
-    selectedCard: null
+    selectedBranch: null
 }
 
-export const cardReducer = (state = initialState, action) => {
+export const branchReducer = (state = initialState, action) => {
     switch (action.type) {
         case UPDATESTATE:
             return {

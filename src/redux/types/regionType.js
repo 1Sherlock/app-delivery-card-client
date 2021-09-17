@@ -1,0 +1,1 @@
+export const UPDATESTATE = "REGION_UPDATE_STATE";

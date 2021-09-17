@@ -26,6 +26,9 @@ import UserPage from "views/User.js";
 import UpgradeToPro from "views/Upgrade.js";
 import Orders from "views/Orders";
 import Cards from "./views/Cards";
+import Regions from "./views/Regions";
+import Filials from "./views/Filials";
+import DeliveryPrice from "./views/DeliveryPrice";
 
 var routes = [
   {
@@ -47,6 +50,27 @@ var routes = [
     name: "Карты",
     icon: "nc-icon nc-calendar-60",
     component: Cards,
+    layout: "/admin",
+  },
+  {
+    path: "/regions",
+    name: "Регионы",
+    icon: "nc-icon nc-calendar-60",
+    component: Regions,
+    layout: "/admin",
+  },
+  {
+    path: "/branches",
+    name: "Филиалы",
+    icon: "nc-icon nc-calendar-60",
+    component: Filials,
+    layout: "/admin",
+  },
+  {
+    path: "/delivery-prices",
+    name: "Цены доставки",
+    icon: "nc-icon nc-calendar-60",
+    component: DeliveryPrice,
     layout: "/admin",
   },
   // {
