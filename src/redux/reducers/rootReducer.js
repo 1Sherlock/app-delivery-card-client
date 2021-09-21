@@ -7,6 +7,7 @@ import {deliveryPriceReducer} from "./deliveryPriceReducer";
 import {userReducer} from "./userReducer";
 import {eposReducer} from "./eposReducer";
 import {paymentReducer} from "./paymentReducer";
+import {orderReducer} from "./orderReducer";
 
 export const rootReducer = combineReducers({
     card: cardReducer,
@@ -16,5 +17,6 @@ export const rootReducer = combineReducers({
     price: deliveryPriceReducer,
     user: userReducer,
     epos: eposReducer,
-    payment: paymentReducer
+    payment: paymentReducer,
+    order: orderReducer
 });
