@@ -9,3 +9,17 @@ export const CONFIG = {
         "Authorization": localStorage.getItem(TOKEN_NAME)
     }
 }
+
+export const ROLE_NAME = [
+    "Администратор",
+    "Партнер",
+    "Сотрудник ФО"
+]
+
+export const CARD_TYPES = [
+    "UzCard",
+    "Humo",
+    "Visa",
+    "MasterCard",
+    "UnionPay"
+];

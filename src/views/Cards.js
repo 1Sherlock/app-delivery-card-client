@@ -3,6 +3,7 @@ import {Collapse, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
 import {connect} from "react-redux";
 import {getCards, save, updateState, deleteCard} from "../redux/actions/cardAction";
 import {AvField, AvForm} from "availity-reactstrap-validation";
+import {CARD_TYPES} from "../tools/constants";
 
 const Cards = (props) => {
 
@@ -10,13 +11,6 @@ const Cards = (props) => {
     useEffect(() => {
         props.getCards();
     }, []);
-    const cardTypes = [
-        "UzCard",
-        "Humo",
-        "Visa",
-        "MasterCard",
-        "UnionPay"
-    ];
 
     const changeModal = () => {
         props.updateState({isOpen: !props.isOpen})
@@ -72,7 +66,7 @@ const Cards = (props) => {
                             <td>{index + 1}</td>
                             <td>{item.name}</td>
                             <td>{item.price}</td>
-                            <td>{cardTypes[item.type]}</td>
+                            <td>{CARD_TYPES[item.type]}</td>
                             <td>{item.commission}</td>
                             <td>{item.currency}</td>
                             <td>{item.currencyCode}</td>
@@ -126,11 +120,11 @@ const Cards = (props) => {
                             type="select"
                             label="Тип"
                         >
-                            <option value={0}>{cardTypes[0]}</option>
-                            <option value={1}>{cardTypes[1]}</option>
-                            <option value={2}>{cardTypes[2]}</option>
-                            <option value={3}>{cardTypes[3]}</option>
-                            <option value={4}>{cardTypes[4]}</option>
+                            <option value={0}>{CARD_TYPES[0]}</option>
+                            <option value={1}>{CARD_TYPES[1]}</option>
+                            <option value={2}>{CARD_TYPES[2]}</option>
+                            <option value={3}>{CARD_TYPES[3]}</option>
+                            <option value={4}>{CARD_TYPES[4]}</option>
                         </AvField>
                         <AvField
                             name="descriptionCr"
