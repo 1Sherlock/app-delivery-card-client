@@ -30,6 +30,8 @@ import Regions from "./views/Regions";
 import Filials from "./views/Filials";
 import DeliveryPrice from "./views/DeliveryPrice";
 import Users from "./views/Users";
+import Eposes from "./views/Eposes";
+import Payments from "./views/Payments";
 
 var routes = [
   {
@@ -79,6 +81,20 @@ var routes = [
     name: "Пользователи",
     icon: "nc-icon nc-calendar-60",
     component: Users,
+    layout: "/admin",
+  },
+  {
+    path: "/eposes",
+    name: "Терминалы",
+    icon: "nc-icon nc-calendar-60",
+    component: Eposes,
+    layout: "/admin",
+  },
+  {
+    path: "/payments",
+    name: "Оплаты",
+    icon: "nc-icon nc-calendar-60",
+    component: Payments,
     layout: "/admin",
   },
   // {

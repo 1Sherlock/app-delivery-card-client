@@ -26,15 +26,16 @@ export const save = (e, v) => (dispatch, getState) => {
     dispatch(updateState({isLoading: true}))
 
     if (v.id){
-        axios.put(API_PATH + "api/epos/update", {...v, processing: parseInt(v.processing)}, CONFIG)
+        axios.put(API_PATH + "api/epos/update", {...v, processing: parseInt(v.processing), branch: getState().branch.branches.filter(item => item.id === v.branchId)[0]?.nameRus}, CONFIG)
             .then(res => {
                 if (res.status === 200){
                     if (res.data.eposes) {
-                        dispatch(updateState({eposes: res.data.eposes, isOpen: false}));
+                        dispatch(updateState({isOpen: false, selectedEpos: null}));
                         toast.success("Изменено")
                     } else {
                         toast.error(res.data.message);
                     }
+                    dispatch(getEposes());
                 }
             })
             .catch(err => {
@@ -45,11 +46,12 @@ export const save = (e, v) => (dispatch, getState) => {
             })
     } else {
 
-        axios.post(API_PATH + "api/epos/create", {...v, processing: parseInt(v.processing)}, CONFIG)
+        axios.post(API_PATH + "api/epos/create", {...v, processing: parseInt(v.processing), branch: getState().branch.branches.filter(item => item.id === v.branchId)[0]?.nameRus}, CONFIG)
             .then(res => {
                 if (res.status === 200){
-                    dispatch(updateState({eposes: res.data.eposes, isOpen: false}));
+                    dispatch(updateState({isOpen: false}));
                     toast.success("Сохранено")
+                    dispatch(getEposes());
                 }
             })
             .catch(err => {
@@ -59,6 +61,7 @@ export const save = (e, v) => (dispatch, getState) => {
                 dispatch(updateState({isLoading: false}))
             })
     }
+
 
 }
 

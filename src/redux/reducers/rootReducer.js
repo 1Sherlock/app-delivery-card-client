@@ -5,6 +5,8 @@ import {regionReducer} from "./regionReducer";
 import {branchReducer} from "./branchReducer";
 import {deliveryPriceReducer} from "./deliveryPriceReducer";
 import {userReducer} from "./userReducer";
+import {eposReducer} from "./eposReducer";
+import {paymentReducer} from "./paymentReducer";
 
 export const rootReducer = combineReducers({
     card: cardReducer,
@@ -12,5 +14,7 @@ export const rootReducer = combineReducers({
     region: regionReducer,
     branch: branchReducer,
     price: deliveryPriceReducer,
-    user: userReducer
+    user: userReducer,
+    epos: eposReducer,
+    payment: paymentReducer
 });

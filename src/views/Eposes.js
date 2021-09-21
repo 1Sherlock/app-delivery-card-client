@@ -4,7 +4,7 @@ import {AvField, AvForm} from "availity-reactstrap-validation";
 import {connect} from "react-redux";
 import {deleteEpos, getEposes, save, updateState} from "../redux/actions/eposAction";
 import {getBranches} from "../redux/actions/branchAction";
-import {ROLE_NAME} from "../tools/constants";
+import {CARD_TYPES, ROLE_NAME} from "../tools/constants";
 
 const Eposes = (props) => {
     useEffect(() => {
@@ -13,7 +13,7 @@ const Eposes = (props) => {
     }, []);
 
     const changeModal = () => {
-        props.updateState({isOpen: !props.isOpen})
+        props.updateState({isOpen: !props.isOpen, selectedEpos: null})
     }
 
     const changeModalDelete = () => {
@@ -47,9 +47,9 @@ const Eposes = (props) => {
                             <td>{item.merchantId}</td>
                             <td>{item.terminalId}</td>
                             <td>{item.port ? item.port : "-"}</td>
-                            <td>{item.processing ? item.processing : "-"}</td>
+                            <td>{item.processing >= 0 ? CARD_TYPES[item.processing] : "-"}</td>
                             <td>{item.processingDesc}</td>
-                            <td>{item.branchId ? props.branches?.filter(item22 => item22.id === item.branchId)[0]?.nameRus : "-"}</td>
+                            <td>{item.branchId ? item.branch : "-"}</td>
                             <td>
                                 <button type="button" className="btn btn-primary my-2 mr-2" onClick={() => {props.updateState({isOpen: true, selectedEpos: item})}}>Изменить</button>
                                 <button type="button" className="btn btn-danger my-2" onClick={() => props.updateState({isOpenDelete: true, eposId: item.id})}>Удалить</button>
@@ -88,8 +88,8 @@ const Eposes = (props) => {
                         />
 
                         <AvField
-                            type="port"
-                            name="text"
+                            type="text"
+                            name="port"
                             label="Порт"
                         />
 
@@ -113,6 +113,8 @@ const Eposes = (props) => {
                             type="textarea"
                             label="Описание Процессинг"
                         />
+
+
 
                         <AvField
                             name="branchId"
@@ -141,7 +143,7 @@ const Eposes = (props) => {
                     Вы точно хотите удалить?
                 </ModalHeader>
                 <ModalFooter>
-                    <button type="button" className="btn btn-danger" onClick={props.deleteUser} disabled={props.isLoading}>
+                    <button type="button" className="btn btn-danger" onClick={props.deleteEpos} disabled={props.isLoading}>
                         {props.isLoading ?
                             <span className="spinner-border spinner-border-sm mr-2"/> : ""}
                         Удалить
