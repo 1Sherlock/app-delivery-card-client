@@ -78,3 +78,21 @@ export const deleteUser = () => (dispatch, getState) => {
             dispatch(updateState({isLoading: false}))
         })
 }
+
+export const changePassword = (e, v) => (dispatch, getState) => {
+    dispatch(updateState({isLoading: true}))
+    axios.put(API_PATH + "api/user/updatePassword?userId=" + getState().user.userId + "&password=" + v.password,{}, CONFIG)
+        .then(res => {
+            if (res.status === 200){
+                dispatch(getUsers());
+                dispatch(updateState({ isOpenPassword: false, userId: null}));
+                toast.success("Изменено")
+            }
+        })
+        .catch(err => {
+            toast.error("Ошибка!")
+        })
+        .finally(() => {
+            dispatch(updateState({isLoading: false}))
+        })
+}

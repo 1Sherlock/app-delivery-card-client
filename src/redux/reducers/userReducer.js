@@ -6,7 +6,8 @@ const initialState = {
     isOpenDelete: false,
     userId: null,
     isLoading: false,
-    selectedUser: null
+    selectedUser: null,
+    isOpenPassword: false
 }
 
 export const userReducer = (state = initialState, action) => {

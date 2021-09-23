@@ -17,22 +17,19 @@
 
 */
 import React from "react";
-// javascript plugin used to create scrollbars on windows
+
 import PerfectScrollbar from "perfect-scrollbar";
-import { Route, Switch, useLocation } from "react-router-dom";
+import {Link, Route, Switch, useLocation} from "react-router-dom";
 
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
-import Footer from "components/Footer/Footer.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
-import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 
 import routes from "routes.js";
+import {TOKEN_NAME} from "../tools/constants";
 
 var ps;
 
 function Dashboard(props) {
-  const [backgroundColor, setBackgroundColor] = React.useState("black");
-  const [activeColor, setActiveColor] = React.useState("info");
   const mainPanel = React.useRef();
   const location = useLocation();
   // let time;
@@ -55,39 +52,44 @@ function Dashboard(props) {
     };
   });
   React.useEffect(() => {
-    mainPanel.current.scrollTop = 0;
-    document.scrollingElement.scrollTop = 0;
+    if (localStorage.getItem(TOKEN_NAME)){
+      mainPanel.current.scrollTop = 0;
+      document.scrollingElement.scrollTop = 0;
+    }
   }, [location]);
-  const handleActiveClick = (color) => {
-    setActiveColor(color);
-  };
-  const handleBgClick = (color) => {
-    setBackgroundColor(color);
-  };
+
   return (
-    <div className="wrapper">
-      <Sidebar
-        {...props}
-        routes={routes}
-        bgColor={backgroundColor}
-        activeColor={activeColor}
-      />
-      <div className="main-panel" ref={mainPanel}>
-        <DemoNavbar {...props} />
-        <Switch>
-          {routes.map((prop, key) => {
-            return (
-              <Route
-                path={prop.layout + prop.path}
-                component={prop.component}
-                key={key}
-              />
-            );
-          })}
-        </Switch>
-      </div>
-    </div>
-  );
+    localStorage.getItem(TOKEN_NAME) ?
+
+        <div className="wrapper">
+          <Sidebar
+              {...props}
+              routes={routes}
+              bgColor="black"
+              activeColor="info"
+          />
+          <div className="main-panel" ref={mainPanel}>
+            <DemoNavbar {...props} />
+            <Switch>
+              {routes.map((prop, key) => {
+                return (
+                    <Route
+                        path={prop.layout + prop.path}
+                        component={prop.component}
+                        key={key}
+                    />
+                );
+              })}
+            </Switch>
+          </div>
+        </div>
+        :
+        <div className="text-center py-5">
+      <h3>404 Not Found</h3>
+          <Link to="/login">Go Login</Link>
+        </div>
+  )
+
 }
 
 export default Dashboard;

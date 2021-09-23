@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
 import {AvField, AvForm} from "availity-reactstrap-validation";
 import {connect} from "react-redux";
-import {deleteUser, getUsers, save, updateState} from "../redux/actions/userAction";
+import {changePassword, deleteUser, getUsers, save, updateState} from "../redux/actions/userAction";
 import {getBranches} from "../redux/actions/branchAction";
 import {ROLE_NAME} from "../tools/constants";
 
@@ -19,11 +19,16 @@ const Users = (props) => {
     const changeModalDelete = () => {
         props.updateState({isOpenDelete: !props.isOpenDelete})
     }
+    const changeModalPassword = () => {
+        props.updateState({isOpenPassword: !props.isOpenPassword, userId: null})
+    }
 
     return (
         <div className="content">
             <div className="container-fluid">
-                <button type="button" className="btn btn-success ml-auto d-block" onClick={() => props.updateState({isOpen: true, selectedUser: null})}>Добавить ползователь</button>
+                <button type="button" className="btn btn-success ml-auto d-block"
+                        onClick={() => props.updateState({isOpen: true, selectedUser: null})}>Добавить ползователь
+                </button>
 
                 <table className="table table-hover table-striped table-bordered table-responsive-md">
                     <thead>
@@ -49,8 +54,17 @@ const Users = (props) => {
                             <td>{ROLE_NAME[item.role] ? ROLE_NAME[item.role] : "-"}</td>
                             <td>{item.branchId ? props.branches?.filter(item22 => item22.id === item.branchId)[0]?.nameRus : "-"}</td>
                             <td>
-                                <button type="button" className="btn btn-primary my-2 mr-2" onClick={() => {props.updateState({isOpen: true, selectedUser: item})}}>Изменить</button>
-                                <button type="button" className="btn btn-danger my-2" onClick={() => props.updateState({isOpenDelete: true, userId: item.id})}>Удалить</button>
+                                <button type="button" className="btn btn-primary my-2 mr-2" onClick={() => {
+                                    props.updateState({isOpen: true, selectedUser: item})
+                                }}>Изменить
+                                </button>
+                                <button type="button" className="btn btn-primary my-2 mr-2" onClick={() => {
+                                    props.updateState({isOpenPassword: true, userId: item.id})
+                                }}>Сменить пароль
+                                </button>
+                                <button type="button" className="btn btn-danger my-2"
+                                        onClick={() => props.updateState({isOpenDelete: true, userId: item.id})}>Удалить
+                                </button>
                             </td>
                         </tr>
                     ))}
@@ -85,11 +99,13 @@ const Users = (props) => {
                             label="Username"
                         />
 
-                        <AvField
-                            type="password"
-                            name="password"
-                            label="Пароль"
-                        />
+                        {props.selectedUser ? "" :
+                            <AvField
+                                type="password"
+                                name="password"
+                                label="Пароль"
+                            />
+                        }
 
                         <AvField
                             name="phoneNumber"
@@ -141,13 +157,39 @@ const Users = (props) => {
                     Вы точно хотите удалить?
                 </ModalHeader>
                 <ModalFooter>
-                    <button type="button" className="btn btn-danger" onClick={props.deleteUser} disabled={props.isLoading}>
+                    <button type="button" className="btn btn-danger" onClick={props.deleteUser}
+                            disabled={props.isLoading}>
                         {props.isLoading ?
                             <span className="spinner-border spinner-border-sm mr-2"/> : ""}
                         Удалить
                     </button>
-                    <button type="button" className="btn btn-secondary">Отменить</button>
+                    <button type="button" className="btn btn-secondary" onClick={changeModalDelete}>Отменить</button>
                 </ModalFooter>
+            </Modal>
+
+            <Modal isOpen={props.isOpenPassword} toggle={changeModalPassword}>
+                <AvForm onValidSubmit={props.changePassword}>
+                    <ModalHeader>
+                        Сменить пароль
+                    </ModalHeader>
+                    <ModalBody>
+                        <AvField
+                            type="password"
+                            name="password"
+                            required
+                            label="Новый пароль"
+                        />
+                    </ModalBody>
+                    <ModalFooter>
+                        <button type="submit" className="btn btn-danger"
+                                disabled={props.isLoading}>
+                            {props.isLoading ?
+                                <span className="spinner-border spinner-border-sm mr-2"/> : ""}
+                            Сменить
+                        </button>
+                        <button type="button" className="btn btn-secondary" onClick={changeModalPassword}>Отменить</button>
+                    </ModalFooter>
+                </AvForm>
             </Modal>
         </div>
     );
@@ -161,8 +203,9 @@ const mapStateToProps = (state) => {
         userId: state.user.userId,
         isLoading: state.user.isLoading,
         selectedUser: state.user.selectedUser,
-        branches: state.branch.branches
+        branches: state.branch.branches,
+        isOpenPassword: state.user.isOpenPassword
     }
 }
 
-export default connect(mapStateToProps, {getUsers, updateState, deleteUser, save, getBranches})(Users);
+export default connect(mapStateToProps, {getUsers, updateState, deleteUser, save, getBranches, changePassword})(Users);
