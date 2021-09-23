@@ -35,7 +35,14 @@ function Dashboard(props) {
   const [activeColor, setActiveColor] = React.useState("info");
   const mainPanel = React.useRef();
   const location = useLocation();
+  // let time;
   React.useEffect(() => {
+    // clearTimeout(time);
+    // time = setTimeout(() => {
+    //   if (window.location.pathname !== "/login") {
+    //     window.location.href = "/login";
+    //   }
+    // }, 5000)
     if (navigator.platform.indexOf("Win") > -1) {
       ps = new PerfectScrollbar(mainPanel.current);
       document.body.classList.toggle("perfect-scrollbar-on");

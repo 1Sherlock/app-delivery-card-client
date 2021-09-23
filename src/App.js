@@ -8,8 +8,10 @@ import "assets/scss/new.scss";
 import AdminLayout from "layouts/Admin.js";
 import Login from "./views/Login";
 import {ToastContainer} from "react-toastify";
+import React, {useEffect} from 'react';
 
-function App() {
+const App = () =>{
+
     return (
         <BrowserRouter>
             <Switch>
@@ -22,6 +24,6 @@ function App() {
 
         </BrowserRouter>
     );
-}
+};
 
 export default App;

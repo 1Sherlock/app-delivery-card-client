@@ -51,7 +51,7 @@ const Cards = (props) => {
                         <th>Валюта</th>
                         <th>Валютный код</th>
                         <th>Фото</th>
-                        <th>Код</th>
+                        <th>Код продукта</th>
                         <th>Срок годности</th>
                         <th>Описание (КР)</th>
                         <th>Описание (ЭНГ)</th>
@@ -167,7 +167,7 @@ const Cards = (props) => {
                         <AvField
                             type="text"
                             name="productCode"
-                            label="Код"
+                            label="Код продукта"
                             required
                         />
                         <AvField

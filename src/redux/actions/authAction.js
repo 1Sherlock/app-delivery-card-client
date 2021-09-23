@@ -20,8 +20,11 @@ export const login = (data, history) => (dispatch) => {
             if (res.data.token){
                 localStorage.setItem(TOKEN_NAME, "Bearer " + res.data.token);
                 localStorage.setItem(REFRESH_TOKEN_NAME, res.data.refreshToken);
-                history.push("/admin/dashboard")
+
             }
+        })
+        .then(res => {
+            window.location.href = "/admin/dashboard"
         })
         .catch((e) => {
             toast.error(e.response?.data);
