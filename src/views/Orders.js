@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Collapse, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
 import {connect} from "react-redux";
 import {changeStatus, getOrderInfo, getOrders, updateState} from "../redux/actions/orderAction";
-import {ORDER_STATUS, ORDER_TYPES} from "../tools/constants";
+import {ORDER_STATUS, ORDER_STATUSES, ORDER_TYPES} from "../tools/constants";
 import {AvForm, AvField} from "availity-reactstrap-validation"
 import PaginationComponent from "../components/PaginationComponent";
 
@@ -60,6 +60,7 @@ const Orders = (props) => {
                         <th>Ф.И.О</th>
                         <th>Дата</th>
                         <th>Тип заказа</th>
+                        <th>Статус заказа</th>
                         <th>Номер телефона</th>
                         <th>Филиал</th>
                         <th>Действия</th>
@@ -67,13 +68,14 @@ const Orders = (props) => {
                     </thead>
                     <tbody>
                     {props.orders?.map((item, index) => (
-                        <tr onClick={() => changeShow(index)}>
-                            <td>{item.number}</td>
-                            <td>{item.client}</td>
-                            <td>{item.date ? item.date.substr(0, 10) + " " + item.date.substr(11, 5) : ""}</td>
-                            <td>{ORDER_TYPES[item.type]}</td>
-                            <td>{item.clientPhone}</td>
-                            <td>{item.branch}</td>
+                        <tr onClick={() => changeShow(index)} >
+                            <td className={item.status === 10 ? "text-success" : ""}>{item.number}</td>
+                            <td className={item.status === 10 ? "text-success" : ""}>{item.client}</td>
+                            <td className={item.status === 10 ? "text-success" : ""}>{item.date ? item.date.substr(0, 10) + " " + item.date.substr(11, 5) : ""}</td>
+                            <td className={item.status === 10 ? "text-success" : ""}>{ORDER_TYPES[item.type]}</td>
+                            <td className={item.status === 10 ? "text-success" : ""} >{item.statusDesc}</td>
+                            <td className={item.status === 10 ? "text-success" : ""}>{item.clientPhone}</td>
+                            <td className={item.status === 10 ? "text-success" : ""}>{item.branch}</td>
                             <td>
                                 <button type="button" className="btn btn-success my-1 mr-2" onClick={() => {
                                     props.updateState({isOpen: true, selectedOrder: item});
@@ -184,7 +186,7 @@ const Orders = (props) => {
                                 <div className="col-md-4">
                                     <h5>Карты</h5>
 
-                                    {props.orderInfo.payments.length > 0 ?
+                                    {props.orderInfo.cards.length > 0 ?
                                         props.orderInfo.cards.map((item, index) => (
                                             <div>
                                                 <p className="mb-0">iabsApplicationId</p>
@@ -216,6 +218,7 @@ const Orders = (props) => {
 
 
                                 </div>
+
                             </>
                         }
                     </div>
@@ -231,13 +234,13 @@ const Orders = (props) => {
                         Изменить статус заказа
                     </ModalHeader>
                     <ModalBody>
-                        <AvField type="select" required name="status">
+                        <AvField type="select" required name="status" label="Статус">
                             <option>Выберите</option>
-                            {ORDER_STATUS.map((item, index) => {
+                            {ORDER_STATUSES.map((item, index) => {
                                 return item.length > 0 ? <option value={index}>{item}</option> : ""
                             })}
                         </AvField>
-                        <AvField type="text" required name="courier"/>
+                        <AvField type="text" required name="courier" label="Курьер"/>
                     </ModalBody>
                     <ModalFooter>
                         <button type="submit" className="btn btn-success">Изменить</button>
