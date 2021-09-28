@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {Collapse, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
 import {connect} from "react-redux";
-import {changeStatus, getOrders, updateState} from "../redux/actions/orderAction";
+import {changeStatus, getOrderInfo, getOrders, updateState} from "../redux/actions/orderAction";
 import {ORDER_STATUS, ORDER_TYPES} from "../tools/constants";
 import {AvForm, AvField} from "availity-reactstrap-validation"
+import PaginationComponent from "../components/PaginationComponent";
+
 const Orders = (props) => {
     const [show, setShow] = useState(-1);
 
@@ -23,293 +25,200 @@ const Orders = (props) => {
         props.updateState({isOpenChange: false, selectedOrderChange: null})
     }
 
+    const getData = (payload) => {
+        props.getOrders(payload.page);
+    }
+
     return (
         <div className="content">
             <div className="container-fluid">
-                <div className="row mb-3 order-header">
-                    <div className="col-2">
-                        <h4 className="mb-0 font-acrom-bold mt-0">ИД</h4>
-                    </div>
-                    <div className="col-2">
-                        <h4 className="mb-0 font-acrom-bold mt-0">Ф.И.О</h4>
-                    </div>
-                    <div className="col-2">
-                        <h4 className="mb-0 font-acrom-bold mt-0">Дата</h4>
-                    </div>
-                    <div className="col-2">
-                        <h4 className="mb-0 font-acrom-bold mt-0">Тип заказа</h4>
-                    </div>
-                    <div className="col-2">
-                        <h4 className="mb-0 font-acrom-bold mt-0">Номер телефона</h4>
-                    </div>
-                    <div className="col-2">
-                        <h4 className="mb-0 font-acrom-bold mt-0">Филиал</h4>
-                    </div>
-                </div>
-                <div className="order-list">
+                {/*<div className="row mb-3 order-header">*/}
+
+                {/*    <div className="col-2">*/}
+                {/*        <h4 className="mb-0 font-acrom-bold mt-0">ИД</h4>*/}
+                {/*    </div>*/}
+                {/*    <div className="col-2">*/}
+                {/*        <h4 className="mb-0 font-acrom-bold mt-0">Ф.И.О</h4>*/}
+                {/*    </div>*/}
+                {/*    <div className="col-2">*/}
+                {/*        <h4 className="mb-0 font-acrom-bold mt-0">Дата</h4>*/}
+                {/*    </div>*/}
+                {/*    <div className="col-2">*/}
+                {/*        <h4 className="mb-0 font-acrom-bold mt-0">Тип заказа</h4>*/}
+                {/*    </div>*/}
+                {/*    <div className="col-2">*/}
+                {/*        <h4 className="mb-0 font-acrom-bold mt-0">Номер телефона</h4>*/}
+                {/*    </div>*/}
+                {/*    <div className="col-2">*/}
+                {/*        <h4 className="mb-0 font-acrom-bold mt-0">Филиал</h4>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
+                <table className="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>ИД</th>
+                        <th>Ф.И.О</th>
+                        <th>Дата</th>
+                        <th>Тип заказа</th>
+                        <th>Номер телефона</th>
+                        <th>Филиал</th>
+                        <th>Действия</th>
+                    </tr>
+                    </thead>
+                    <tbody>
                     {props.orders?.map((item, index) => (
-                        <div className="order-list-item align-items-center row mb-2">
-                            <div className="order-list-item-header w-100 d-flex" onClick={() => changeShow(index)}>
-                                <div className="col-2">
-                                    <h6 className="my-0">{item.number}</h6>
-                                </div>
-                                <div className="col-2">
-                                    <h6 className="my-0">{item.user}</h6>
-                                </div>
-                                <div className="col-2">
-                                    <h6 className="my-0">{item.date ? item.date.substr(0, 10) + " " + item.date.substr(11, 5) : ""}</h6>
-                                </div>
-                                <div className="col-2">
-                                    <h6 className="my-0">{ORDER_TYPES[item.type]}</h6>
-                                </div>
-                                <div className="col-2">
-                                    <h6 className="my-0">{item.clientPhone}</h6>
-                                </div>
-                                <div className="col-2">
-                                    <h6 className="my-0">{item.branch}</h6>
-                                </div>
-                            </div>
-                            <Collapse isOpen={show === index} className="w-100">
-                                <div className="order-list-body row mx-0 w-100 justify-content-center">
-                                    {/*<div className="col-8"><h3 className="mt-0 font-acrom-bold mb-4 text-center">Персональная информация</h3></div>*/}
-                                    <div className="col-4"><h3
-                                        className="mt-0 font-acrom-bold mb-4 text-center">Информация о заказе</h3></div>
-
-                                </div>
-                                <div className="row order-list-body">
-                                    <div className="col-3 offset-2">
-                                        <p className="mt-0 mb-1">Тип заказа</p>
-                                        <h2 className="mt-0 mb-3 font-acrom-bold">{item.typeDesc}</h2>
-
-                                        <p className="mt-0 mb-1">Достака</p>
-                                        <h2 className="mt-0 mb-3 font-acrom-bold">{item.withDelivery ? "Есть" : "Нет"}</h2>
-
-                                        {item.withDelivery ?
-                                            <>
-                                                <p className="mt-0 mb-1">Адрес доставки</p>
-                                                <h2 className="mt-0 mb-3 font-acrom-bold">{item.deliveryAddress}</h2>
-                                                <p className="mt-0 mb-1">Дата доставки</p>
-                                                <h2 className="mt-0 mb-3 font-acrom-bold">{item.deliveryDate ? item.deliveryDate.substr(0, 10) + " " + item.deliveryDate.substr(11, 5) : ""}</h2>
-                                                <p className="mt-0 mb-1">Время доставки (мин)</p>
-                                                <h2 className="mt-0 mb-3 font-acrom-bold">{item.deliveryTimeMin ? item.deliveryTimeMin.substr(0, 10) + " " + item.deliveryTimeMin.substr(11, 5) : ""}</h2>
-                                                <p className="mt-0 mb-1">Время доставки (мах)</p>
-                                                <h2 className="mt-0 mb-3 font-acrom-bold">{item.deliveryTimeMax ? item.deliveryTimeMax.substr(0, 10) + " " + item.deliveryTimeMax.substr(11, 5) : ""}</h2>
-                                            </> : ""
-                                        }
-
-                                    </div>
-                                    <div className="col-3">
-                                        <p className="mt-0 mb-1">Адрес доставки (лат / лонг)</p>
-                                        <h2 className="mt-0 mb-3 font-acrom-bold">{item.deliveryLatitude} / {item.deliveryLongitude}</h2>
-
-                                        <p className="mt-0 mb-1">Статус заказа</p>
-                                        <h2 className="mt-0 mb-3 font-acrom-bold">{ORDER_STATUS[item.status]}</h2>
-                                        <p className="mt-0 mb-1">Описание статуса заказа</p>
-                                        <h2 className="mt-0 mb-3 font-acrom-bold">{item.statusDesc}</h2>
-                                    </div>
-                                    <div className="col-4">
-                                        <p className="mt-0 mb-1">Регион</p>
-                                        <h2 className="mt-0 mb-3 font-acrom-bold">{item.region}</h2>
-
-                                        <p className="mt-0 mb-1">Курьер</p>
-                                        <h2 className="mt-0 mb-3 font-acrom-bold">{item.courier}</h2>
-                                        <button type="button" className="btn btn-primary"
-                                                onClick={() => props.updateState({
-                                                    isOpen: true,
-                                                    selectedOrder: item
-                                                })}>Информация
-                                        </button>
-                                        <button type="button" className="btn btn-success"
-                                                onClick={() => props.updateState({
-                                                    isOpenChange: true,
-                                                    selectedOrderChange: item
-                                                })}>Изменить статус
-                                        </button>
-                                    </div>
-                                </div>
-                            </Collapse>
-                        </div>
+                        <tr onClick={() => changeShow(index)}>
+                            <td>{item.number}</td>
+                            <td>{item.client}</td>
+                            <td>{item.date ? item.date.substr(0, 10) + " " + item.date.substr(11, 5) : ""}</td>
+                            <td>{ORDER_TYPES[item.type]}</td>
+                            <td>{item.clientPhone}</td>
+                            <td>{item.branch}</td>
+                            <td>
+                                <button type="button" className="btn btn-success my-1 mr-2" onClick={() => {
+                                    props.updateState({isOpen: true, selectedOrder: item});
+                                    props.getOrderInfo(item.id)
+                                }}>Информация
+                                </button>
+                                <button type="button" className="btn btn-primary my-1" onClick={() => {
+                                    props.updateState({isOpenChange: true, selectedOrderChange: item})
+                                }}>Изменить статус
+                                </button>
+                            </td>
+                        </tr>
                     ))}
+                    </tbody>
+                </table>
 
-                    {/*<div className="order-list-item align-items-center row mb-2">*/}
-                    {/*    <div className="order-list-item-header w-100 d-flex" onClick={() => changeShow(1)}>*/}
-                    {/*        <div className="col-2">*/}
-                    {/*            <h6 className="my-0">3239490329</h6>*/}
-                    {/*        </div>*/}
-                    {/*        <div className="col-2">*/}
-                    {/*            <h6 className="my-0">Muxammatov N.</h6>*/}
-                    {/*        </div>*/}
-                    {/*        <div className="col-2">*/}
-                    {/*            <h6 className="my-0">20.11.2020</h6>*/}
-                    {/*        </div>*/}
-                    {/*        <div className="col-2">*/}
-                    {/*            <h6 className="my-0">Перевыпуск</h6>*/}
-                    {/*        </div>*/}
-                    {/*        <div className="col-2">*/}
-                    {/*            <h6 className="my-0">Humo</h6>*/}
-                    {/*        </div>*/}
-                    {/*        <div className="col-2">*/}
-                    {/*            <h6 className="my-0">Tashkent, Yunusabad</h6>*/}
-                    {/*        </div>*/}
-                    {/*    </div>*/}
-                    {/*    <Collapse isOpen={show === 1} className="w-100">*/}
-                    {/*        <div className="order-list-body row mx-0 w-100 justify-content-center">*/}
-                    {/*            /!*<div className="col-8"><h3 className="mt-0 font-acrom-bold mb-4 text-center">Персональная информация</h3></div>*!/*/}
-                    {/*            <div className="col-4"><h3 className="mt-0 font-acrom-bold mb-4 text-center">Информация*/}
-                    {/*                о заказе</h3></div>*/}
-
-                    {/*        </div>*/}
-                    {/*        <div className="row order-list-body">*/}
-                    {/*            <div className="col-3 offset-2">*/}
-                    {/*                <p className="mt-0 mb-1">ПИНФЛ</p>*/}
-                    {/*                <h2 className="mt-0 mb-3 font-acrom-bold">39391083849203</h2>*/}
-
-                    {/*                <p className="mt-0 mb-1">Passport serial</p>*/}
-                    {/*                <h2 className="mt-0 mb-3 font-acrom-bold">AA 8576746</h2>*/}
-
-                    {/*                <p className="mt-0 mb-1">Дата рождения</p>*/}
-                    {/*                <h2 className="mt-0 mb-3 font-acrom-bold">20.11.1998</h2>*/}
-                    {/*            </div>*/}
-                    {/*            <div className="col-3">*/}
-                    {/*                <p className="mt-0 mb-1">Основной номер телефона</p>*/}
-                    {/*                <h2 className="mt-0 mb-3 font-acrom-bold">+998 93 436 63 31</h2>*/}
-
-                    {/*                <p className="mt-0 mb-1">Вторичный номер телефона</p>*/}
-                    {/*                <h2 className="mt-0 mb-3 font-acrom-bold">+998 33 166 11 31</h2>*/}
-                    {/*            </div>*/}
-                    {/*            <div className="col-4">*/}
-                    {/*                <p className="mt-0 mb-1">Статус платежа</p>*/}
-                    {/*                <h2 className="mt-0 mb-3 font-acrom-bold">Успешно</h2>*/}
-
-                    {/*                <p className="mt-0 mb-1">Статус доставки</p>*/}
-                    {/*                <h2 className="mt-0 mb-3 font-acrom-bold">Доставлено</h2>*/}
-
-                    {/*                <button type="button" className="btn btn-primary"*/}
-                    {/*                        onClick={() => props.updateState({isOpen: true})}>Информация*/}
-                    {/*                </button>*/}
-                    {/*                <button type="button" className="btn btn-success"*/}
-                    {/*                        onClick={() => props.updateState({isOpenChange: true})}>Изменить статус*/}
-                    {/*                </button>*/}
-                    {/*            </div>*/}
-                    {/*        </div>*/}
-                    {/*    </Collapse>*/}
-                    {/*</div>*/}
-                    {/*<div className="order-list-item align-items-center row mb-2">*/}
-                    {/*    <div className="order-list-item-header w-100 d-flex" onClick={() => changeShow(2)}>*/}
-                    {/*        <div className="col-2">*/}
-                    {/*            <h6 className="my-0">3239490329</h6>*/}
-                    {/*        </div>*/}
-                    {/*        <div className="col-2">*/}
-                    {/*            <h6 className="my-0">Muxammatov N.</h6>*/}
-                    {/*        </div>*/}
-                    {/*        <div className="col-2">*/}
-                    {/*            <h6 className="my-0">20.11.2020</h6>*/}
-                    {/*        </div>*/}
-                    {/*        <div className="col-2">*/}
-                    {/*            <h6 className="my-0">Перевыпуск</h6>*/}
-                    {/*        </div>*/}
-                    {/*        <div className="col-2">*/}
-                    {/*            <h6 className="my-0">Humo</h6>*/}
-                    {/*        </div>*/}
-                    {/*        <div className="col-2">*/}
-                    {/*            <h6 className="my-0">Tashkent, Yunusabad</h6>*/}
-                    {/*        </div>*/}
-                    {/*    </div>*/}
-                    {/*    <Collapse isOpen={show === 2} className="w-100">*/}
-                    {/*        <div className="order-list-body row mx-0 w-100 justify-content-center">*/}
-                    {/*            <div className="col-8"><h3*/}
-                    {/*                className="mt-0 font-acrom-bold mb-4 text-center">Персональная информация</h3></div>*/}
-                    {/*            <div className="col-4"><h3 className="mt-0 font-acrom-bold mb-4 text-center">Информация*/}
-                    {/*                о заказе</h3></div>*/}
-                    {/*            <div className="col-3 offset-2">*/}
-                    {/*                <p className="mt-0 mb-1">ПИНФЛ</p>*/}
-                    {/*                <h2 className="mt-0 mb-3 font-acrom-bold">39391083849203</h2>*/}
-
-                    {/*                <p className="mt-0 mb-1">Passport serial</p>*/}
-                    {/*                <h2 className="mt-0 mb-3 font-acrom-bold">AA 8576746</h2>*/}
-
-                    {/*                <p className="mt-0 mb-1">Дата рождения</p>*/}
-                    {/*                <h2 className="mt-0 mb-3 font-acrom-bold">20.11.1998</h2>*/}
-                    {/*            </div>*/}
-                    {/*            <div className="col-3">*/}
-                    {/*                <p className="mt-0 mb-1">Основной номер телефона</p>*/}
-                    {/*                <h2 className="mt-0 mb-3 font-acrom-bold">+998 93 436 63 31</h2>*/}
-
-                    {/*                <p className="mt-0 mb-1">Вторичный номер телефона</p>*/}
-                    {/*                <h2 className="mt-0 mb-3 font-acrom-bold">+998 33 166 11 31</h2>*/}
-                    {/*            </div>*/}
-                    {/*            <div className="col-4">*/}
-                    {/*                <p className="mt-0 mb-1">Статус платежа</p>*/}
-                    {/*                <h2 className="mt-0 mb-3 font-acrom-bold">Успешно</h2>*/}
-
-                    {/*                <p className="mt-0 mb-1">Статус доставки</p>*/}
-                    {/*                <h2 className="mt-0 mb-3 font-acrom-bold">Доставлено</h2>*/}
-                    {/*            </div>*/}
-                    {/*        </div>*/}
-                    {/*    </Collapse>*/}
-                    {/*</div>*/}
-                    {/*<div className="order-list-item align-items-center row mb-2">*/}
-                    {/*    <div className="order-list-item-header w-100 d-flex" onClick={() => changeShow(3)}>*/}
-                    {/*        <div className="col-2">*/}
-                    {/*            <h6 className="my-0">3239490329</h6>*/}
-                    {/*        </div>*/}
-                    {/*        <div className="col-2">*/}
-                    {/*            <h6 className="my-0">Muxammatov N.</h6>*/}
-                    {/*        </div>*/}
-                    {/*        <div className="col-2">*/}
-                    {/*            <h6 className="my-0">20.11.2020</h6>*/}
-                    {/*        </div>*/}
-                    {/*        <div className="col-2">*/}
-                    {/*            <h6 className="my-0">Перевыпуск</h6>*/}
-                    {/*        </div>*/}
-                    {/*        <div className="col-2">*/}
-                    {/*            <h6 className="my-0">Humo</h6>*/}
-                    {/*        </div>*/}
-                    {/*        <div className="col-2">*/}
-                    {/*            <h6 className="my-0">Tashkent, Yunusabad</h6>*/}
-                    {/*        </div>*/}
-                    {/*    </div>*/}
-                    {/*    <Collapse isOpen={show === 3} className="w-100">*/}
-                    {/*        <div className="order-list-body row mx-0 w-100 justify-content-center">*/}
-                    {/*            <div className="col-8"><h3*/}
-                    {/*                className="mt-0 font-acrom-bold mb-4 text-center">Персональная информация</h3></div>*/}
-                    {/*            <div className="col-4"><h3 className="mt-0 font-acrom-bold mb-4 text-center">Информация*/}
-                    {/*                о заказе</h3></div>*/}
-                    {/*            <div className="col-3 offset-2">*/}
-                    {/*                <p className="mt-0 mb-1">ПИНФЛ</p>*/}
-                    {/*                <h2 className="mt-0 mb-3 font-acrom-bold">39391083849203</h2>*/}
-
-                    {/*                <p className="mt-0 mb-1">Серия паспорта</p>*/}
-                    {/*                <h2 className="mt-0 mb-3 font-acrom-bold">AA 8576746</h2>*/}
-
-                    {/*                <p className="mt-0 mb-1">Дата рождения</p>*/}
-                    {/*                <h2 className="mt-0 mb-3 font-acrom-bold">20.11.1998</h2>*/}
-                    {/*            </div>*/}
-                    {/*            <div className="col-3">*/}
-                    {/*                <p className="mt-0 mb-1">Основной номер телефона</p>*/}
-                    {/*                <h2 className="mt-0 mb-3 font-acrom-bold">+998 93 436 63 31</h2>*/}
-
-                    {/*                <p className="mt-0 mb-1">Вторичный номер телефона</p>*/}
-                    {/*                <h2 className="mt-0 mb-3 font-acrom-bold">+998 33 166 11 31</h2>*/}
-                    {/*            </div>*/}
-                    {/*            <div className="col-4">*/}
-                    {/*                <p className="mt-0 mb-1">Статус платежа</p>*/}
-                    {/*                <h2 className="mt-0 mb-3 font-acrom-bold">Успешно</h2>*/}
-
-                    {/*                <p className="mt-0 mb-1">Статус доставки</p>*/}
-                    {/*                <h2 className="mt-0 mb-3 font-acrom-bold">Доставлено</h2>*/}
-                    {/*            </div>*/}
-                    {/*        </div>*/}
-                    {/*    </Collapse>*/}
-                    {/*</div>*/}
-                </div>
+                <PaginationComponent
+                    totalPages={props.totalPages}
+                    currentPage={props.page}
+                    getPageData={getData}
+                />
             </div>
 
-            <Modal isOpen={props.isOpen} toggle={changeModal}>
+
+            <Modal isOpen={props.isOpen} toggle={changeModal} size="xl">
                 <ModalHeader>
                     Информация о заказе
                 </ModalHeader>
                 <ModalBody>
+                    <div className="row">
+                        <div className="col-md-4">
+                            <h5>Заказ</h5>
+
+                            <p className="mb-0">Курер</p>
+                            <h6 className="mb-3">{props.selectedOrder?.courier ? props.selectedOrder?.courier : "-"}</h6>
+
+                            <p className="mb-0">Адрес доставки (lat/long)</p>
+                            <h6>{props.selectedOrder?.deliveryAddress ? props.selectedOrder?.deliveryAddress : "-"}</h6>
+                            <h6 className="mb-3">{props.selectedOrder?.deliveryLatitude ? props.selectedOrder?.deliveryLatitude : "-"} / {props.selectedOrder?.deliveryLongitude ? props.selectedOrder?.deliveryLongitude : "-"}</h6>
+
+                            <p className="mb-0">Дата доставки (min/max)</p>
+                            <h6>{props.selectedOrder?.deliveryDate ? props.selectedOrder?.deliveryDate.substr(0, 10) + " " + props.selectedOrder?.deliveryDate.substr(11, 5) : ""}</h6>
+                            <h6 className="mb-3">{props.selectedOrder?.deliveryTimeMax ? props.selectedOrder?.deliveryTimeMax.substr(0, 10) + " " + props.selectedOrder?.deliveryTimeMax.substr(11, 5) : ""} / {props.selectedOrder?.deliveryTimeMin ? props.selectedOrder?.deliveryTimeMin.substr(0, 10) + " " + props.selectedOrder?.deliveryTimeMin.substr(11, 5) : ""}</h6>
+
+                            <p className="mb-0">Статус</p>
+                            <h6 className="mb-3">{props.selectedOrder?.statusDesc ? props.selectedOrder?.statusDesc : "-"}</h6>
+
+                            <p className="mb-0">User</p>
+                            <h6 className="mb-3">{props.selectedOrder?.user ? props.selectedOrder?.user : "-"}</h6>
+                        </div>
+                        {props.orderInfo &&
+                            <>
+                                <div className="col-md-4">
+                                    <h5>Платежы</h5>
+
+                                    {props.orderInfo.payments.length > 0 ?
+                                        props.orderInfo.payments.map((item, index) => (
+                                            <div>
+                                                <p className="mb-0">Номер</p>
+                                                <h6 className="mb-3">{item.number ? item.number : "-"}</h6>
+
+                                                <p className="mb-0">Дата</p>
+                                                <h6>{item.date ? item.date.substr(0, 10) + " " + item.date.substr(11, 5) : ""}</h6>
+
+                                                <p className="mb-0">Номер и срок годности карты</p>
+                                                <h6 className="mb-3">{item.cardNumber ? item.cardNumber : "-"} {item.cardExpiry ? item.cardExpiry : "-"}</h6>
+
+                                                <p className="mb-0">Деньги карты</p>
+                                                <h6 className="mb-3">{item.cardAmount ? item.cardAmount : "-"}</h6>
+
+                                                <p className="mb-0">Цена доставки</p>
+                                                <h6 className="mb-3">{item.deliveryAmount ? item.deliveryAmount : "-"}</h6>
+
+                                                <p className="mb-0">User</p>
+                                                <h6 className="mb-3">{item.user ? item.user : "-"}</h6>
+
+                                                <p className="mb-0">Телефон номер карты</p>
+                                                <h6 className="mb-3">{item.cardPhone ? item.cardPhone : "-"}</h6>
+
+                                                <p className="mb-0">Филиал</p>
+                                                <h6 className="mb-3">{item.branch ? item.branch : "-"}</h6>
+
+                                                <p className="mb-0">procHoldId</p>
+                                                <h6 className="mb-3">{item.procHoldId ? item.procHoldId : "-"}</h6>
+
+                                                <p className="mb-0">procTranId</p>
+                                                <h6 className="mb-3">{item.procTranId ? item.procTranId : "-"}</h6>
+
+                                                <p className="mb-0">procDeliveryHoldId</p>
+                                                <h6 className="mb-3">{item.procDeliveryHoldId ? item.procDeliveryHoldId : "-"}</h6>
+
+                                                <p className="mb-0">procDeliveryTranId</p>
+                                                <h6 className="mb-3">{item.procDeliveryTranId ? item.procDeliveryTranId : "-"}</h6>
+
+                                                <p className="mb-0">Статус</p>
+                                                <h6 className="mb-3">{item.statusDesc ? item.statusDesc : "-"}</h6>
+
+                                                <p className="mb-0">merchantTransactionId</p>
+                                                <h6 className="mb-3">{item.merchantTransactionId ? item.merchantTransactionId : "-"}</h6>
+
+
+                                            </div>
+                                        )) : <h4 className="text-muted">Пока что нет платежей</h4>
+                                    }
+
+
+                                </div>
+                                <div className="col-md-4">
+                                    <h5>Карты</h5>
+
+                                    {props.orderInfo.payments.length > 0 ?
+                                        props.orderInfo.cards.map((item, index) => (
+                                            <div>
+                                                <p className="mb-0">iabsApplicationId</p>
+                                                <h6 className="mb-3">{item.iabsApplicationId ? item.iabsApplicationId : "-"}</h6>
+
+                                                <p className="mb-0">iabsCardCode</p>
+                                                <h6 className="mb-3">{item.iabsCardCode ? item.iabsCardCode : "-"}</h6>
+
+                                                <p className="mb-0">Тип контракта</p>
+                                                <h6 className="mb-3">{item.contractType ? item.contractType : "-"}</h6>
+
+                                                <p className="mb-0">Ид контракта</p>
+                                                <h6 className="mb-3">{item.contractId ? item.contractId : "-"}</h6>
+
+                                                <p className="mb-0">Номер и срок годности карты </p>
+                                                <h6 className="mb-3">{item.cardNumber ? item.cardNumber : "-"} {item.dateExpire ? item.dateExpire : "-"}</h6>
+
+                                                <p className="mb-0">Статус</p>
+                                                <h6 className="mb-3">{item.status ? item.status : "-"}</h6>
+
+                                                <p className="mb-0">Цена карты</p>
+                                                <h6 className="mb-3">{item.cardPrice ? item.cardPrice : "-"}</h6>
+
+                                                <p className="mb-0">Тип карты</p>
+                                                <h6 className="mb-3">{item.cardType ? item.cardType : "-"}</h6>
+                                            </div>
+                                        )) : <h4 className="text-muted">Пока что нет карты</h4>
+                                    }
+
+
+                                </div>
+                            </>
+                        }
+                    </div>
 
                 </ModalBody>
                 <ModalFooter>
@@ -322,11 +231,10 @@ const Orders = (props) => {
                         Изменить статус заказа
                     </ModalHeader>
                     <ModalBody>
-                        <AvField  type="select required" name="status">
+                        <AvField type="select" required name="status">
                             <option>Выберите</option>
                             {ORDER_STATUS.map((item, index) => {
-                                return item.length > 0 ?
-                                    <option value={index}>{item}</option> : ""
+                                return item.length > 0 ? <option value={index}>{item}</option> : ""
                             })}
                         </AvField>
                         <AvField type="text" required name="courier"/>
@@ -337,6 +245,7 @@ const Orders = (props) => {
                     </ModalFooter>
                 </AvForm>
             </Modal>
+
         </div>
     );
 };
@@ -350,7 +259,8 @@ const mapStateToProps = (state) => {
         selectedOrder: state.order.selectedOrder,
         isOpen: state.order.isOpen,
         isOpenChange: state.order.isOpenChange,
+        orderInfo: state.order.orderInfo
     }
 }
 
-export default connect(mapStateToProps, {getOrders, updateState, changeStatus})(Orders);
+export default connect(mapStateToProps, {getOrders, updateState, changeStatus, getOrderInfo})(Orders);

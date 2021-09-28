@@ -6,7 +6,9 @@ const initialState = {
     page: 0,
     totalPages: 0,
     selectedOrder: null,
-    isOpen: false
+    selectedOrderChange: null,
+    isOpen: false,
+    orderInfo: null
 }
 
 export const orderReducer = (state = initialState, action) => {

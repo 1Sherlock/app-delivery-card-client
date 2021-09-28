@@ -11,7 +11,7 @@ export function updateState(state) {
 }
 
 export const getOrders = (page) => (dispatch) => {
-    axios.get(API_PATH + "api/orders?pageNumber=" + page, CONFIG)
+    axios.get(API_PATH + "api/orders?pageNumber=" + (page + 1) , CONFIG)
         .then(res => {
             dispatch(updateState({
                 orders: res.data.orders,
@@ -27,12 +27,18 @@ export const getOrders = (page) => (dispatch) => {
 export const changeStatus = (e, v) => (dispatch, getState) => {
     dispatch(updateState({isLoading: true}))
 
-    axios.post(API_PATH + "api/order/changeStatus?orderId=" + getState().order.selectedOrderChange.id + "&status=" + v.status + "&courier=" + v.courier)
+    axios.post(API_PATH + "api/order/changeStatus?orderId=" + getState().order.selectedOrderChange.id + "&status=" + v.status + "&courier=" + v.courier,{}, CONFIG)
         .then(res => {
             if (res.status === 200){
+                if (res.data.code == 0){
                     dispatch(updateState({isOpenChange: false, selectedOrderChange: null}));
                     dispatch(getOrders(0));
                     toast.success("Изменено")
+                } else if (res.data.code == -408){
+                    toast.error(res.data.message)
+
+                }
+
             }
         })
         .catch(err => {
@@ -40,5 +46,12 @@ export const changeStatus = (e, v) => (dispatch, getState) => {
         })
         .finally(() => {
             dispatch(updateState({isLoading: false}))
+        })
+}
+
+export const getOrderInfo = (orderId) => (dispatch) => {
+    axios.get(API_PATH + "api/order/info?orderId=" + orderId, CONFIG)
+        .then(res => {
+            dispatch(updateState({orderInfo: res.data}))
         })
 }
